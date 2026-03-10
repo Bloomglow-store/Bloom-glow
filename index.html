@@ -71,15 +71,28 @@ box-shadow:0 0 10px rgba(0,0,0,0.3);
 font-size:14px;
 }
 
-.product{
-margin-top:20px;
-}
-
 .product img{
 width:260px;
 max-width:90%;
 border-radius:15px;
 box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+input,textarea,select{
+padding:10px;
+width:80%;
+max-width:320px;
+margin:6px;
+}
+
+button{
+background:#25D366;
+color:white;
+padding:10px 25px;
+border:none;
+border-radius:20px;
+font-size:16px;
+cursor:pointer;
 }
 
 </style>
@@ -122,7 +135,7 @@ box-shadow:0 8px 20px rgba(0,0,0,0.4);
 </div>
 
 <!-- ORDER BUTTON -->
-<div style="text-align:center;margin:25px 0;">
+<div style="margin:25px 0;">
 <a href="https://wa.me/923314012641?text=I%20want%20Bloom%20Glow%20Cream"
 style="
 background:#25D366;
@@ -140,52 +153,62 @@ Order on WhatsApp
 </div>
 
 <!-- REAL RESULTS -->
-<div style="
-background:linear-gradient(#000,#b8961d);
-padding:40px 15px;
-text-align:center;
-">
+<div style="background:linear-gradient(#000,#b8961d);padding:40px 15px;">
 
-<h2 style="
-font-size:28px;
-margin-bottom:20px;
-color:white;
-">
-Real Results
-</h2>
+<h2 style="font-size:28px;margin-bottom:20px;">Real Results</h2>
 
 <img src="realresults.jpg"
-style="
-width:100%;
-max-width:900px;
-border-radius:18px;
-box-shadow:0 10px 25px rgba(0,0,0,0.5);
-">
+style="width:100%;max-width:900px;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,0.5);">
 
 </div>
 
 <!-- REVIEWS -->
 <div class="section">
 
-<h2>⭐ Customer Reviews (1284 Reviews)</h2>
+<h2>⭐ Customer Reviews</h2>
 
 <div class="review">
 ⭐⭐⭐⭐⭐ <br>
-"After using Bloom Glow Cream my dark spots faded and my skin started glowing."
+After using Bloom Glow Cream my dark spots faded and my skin started glowing.
 <br><b>— Hira, Islamabad</b>
 </div>
 
 <div class="review">
 ⭐⭐⭐⭐⭐ <br>
-"Very smooth texture and amazing results."
+Very smooth texture and amazing results.
 <br><b>— Fatima, Lahore</b>
 </div>
 
 <div class="review">
 ⭐⭐⭐⭐⭐ <br>
-"My skin tone became brighter in a few weeks."
+My skin tone became brighter in a few weeks.
 <br><b>— Ayesha, Karachi</b>
 </div>
+
+<div id="newReviews"></div>
+
+</div>
+
+<!-- REVIEW FORM -->
+<div class="section">
+
+<h3>Add Your Review</h3>
+
+<input id="reviewName" placeholder="Your Name">
+
+<textarea id="reviewText" placeholder="Write your review"></textarea>
+
+<select id="reviewStars">
+<option value="⭐⭐⭐⭐⭐">5 Stars</option>
+<option value="⭐⭐⭐⭐">4 Stars</option>
+<option value="⭐⭐⭐">3 Stars</option>
+<option value="⭐⭐">2 Stars</option>
+<option value="⭐">1 Star</option>
+</select>
+
+<br>
+
+<button onclick="addReview()">Submit Review</button>
 
 </div>
 
@@ -196,31 +219,18 @@ Hira from Lahore ordered Bloom Glow Cream
 
 <script>
 
-let images=[
-"banner1.jpg",
-"banner2.jpg",
-"banner3a.jpg",
-"banner3b.jpg"
-];
-
+let images=["banner1.jpg","banner2.jpg","banner3a.jpg","banner3b.jpg"];
 let i=0;
 
 setInterval(function(){
-
 i++;
-
 if(i>=images.length){i=0;}
-
 document.getElementById("slide").src=images[i];
-
 },3000);
 
 setInterval(function(){
-
 let viewers=Math.floor(Math.random()*15)+25;
-
 document.getElementById("viewCount").innerText=viewers;
-
 },4000);
 
 let names=[
@@ -232,29 +242,42 @@ let names=[
 ];
 
 setInterval(function(){
-
 let randomName=names[Math.floor(Math.random()*names.length)];
-
 document.getElementById("notify").innerText=
 randomName+" ordered Bloom Glow Cream";
-
 },5000);
 
 let time=600;
 
 setInterval(function(){
-
 let minutes=Math.floor(time/60);
 let seconds=time%60;
-
 if(seconds<10){seconds="0"+seconds;}
-
-document.getElementById("countdown").innerText=
-minutes+":"+seconds;
-
+document.getElementById("countdown").innerText=minutes+":"+seconds;
 if(time>0){time--;}
-
 },1000);
+
+function addReview(){
+
+let name=document.getElementById("reviewName").value;
+let text=document.getElementById("reviewText").value;
+let stars=document.getElementById("reviewStars").value;
+
+if(name=="" || text==""){
+alert("Please fill all fields");
+return;
+}
+
+let review=document.createElement("div");
+review.className="review";
+
+review.innerHTML=stars+"<br>"+text+"<br><b>— "+name+"</b>";
+
+document.getElementById("newReviews").appendChild(review);
+
+document.getElementById("reviewName").value="";
+document.getElementById("reviewText").value="";
+}
 
 </script>
 
